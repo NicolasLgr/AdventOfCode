@@ -18,21 +18,34 @@ def get_winning_card(line):
 
 all_winning_cards = []
 all_my_cards = []
+copy_card = []
+hand_to_duplicates = 0
 points = 0
 i = 0
+j = 0
+tmp_copy_card = []
+sum_all = []
 
 for line in lines:
     all_winning_cards.append(get_winning_card(line))
     all_my_cards.append(get_my_card(line))
 
 for hand in all_my_cards:
-    hand_points = 0
+    j = i
+    tmp_copy_card.clear()
     for card in hand:
         if card in all_winning_cards[i]:
-            if hand_points == 0:
-                hand_points += 1
-            else:
-                hand_points = hand_points*2
-    points += hand_points    
+            j += 1
+            tmp_copy_card.append(j)
+    number_of_copy = copy_card.count(i)+1
+    
+    for k in range(number_of_copy):
+        for element in tmp_copy_card:
+            copy_card.append(element)         
     i += 1
-print(points)
+
+for z in range(len(lines)+1):
+    if z in copy_card:
+        sum_all.append(copy_card.count(z))
+
+print(sum(sum_all) + len(lines))
